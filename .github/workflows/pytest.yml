@@ -51,20 +51,20 @@ jobs:
           # allow first run even if gh-pages doesn't exist
           continue-on-error: true
 
-      - name: Generate Allure report with history
+      - name: Generate Allure test report
+        uses: andgineer/allure-report@v3.6
         id: allure-report
-        uses: simple-elf/allure-report-action@master
+        if: always()
         with:
-          allure_results: allure-results
-          gh_pages: gh-pages
-          allure_report: allure-report
-          allure_history: allure-history
+          allure-results: allure-results
+          website: gh-pages-dir
+          reports-site-path: builds/tests
 
-      - name: Deploy updated Allure report to GitHub Pages
+      - name: Publish Allure test report
         uses: peaceiris/actions-gh-pages@v3
-        if: ${{ always() }}
+        if: ${{ always() && (steps.allure-report.outcome == 'success') }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: gh-pages/allure-history
-          # keeps only this run reports
-          clean: true
+          publish_branch: gh-pages
+          publish_dir: ./allure-report
+          destination_dir: ${{ steps.allure-report.outputs.reports-site-path }}
