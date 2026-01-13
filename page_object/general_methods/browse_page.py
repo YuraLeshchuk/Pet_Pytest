@@ -1,7 +1,6 @@
 import os
 import time
 
-import pyautogui
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
@@ -47,19 +46,5 @@ class BrowsePage:
         timeout = kwargs.get('timeout', 20)
         WebDriverWait(self.driver, timeout).until(EC.invisibility_of_element_located(self.loader_xpath))
 
-    def click_and_move_mouse_cursor(self, x, y, **kwargs):
-        button = kwargs.get('button', "left")
-        pyautogui.drag(x, y, 2, button=button)
-
-    def set_mouse_cursor(self, x, y):
-        pyautogui.moveTo(x, y)
-
     def select(self, element, value):
         return Select(element).select_by_value(value)
-
-    def load_file(self, file_path, **kwargs):
-        timeout = kwargs.get('timeout', 2)
-        time.sleep(timeout)
-        path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")) + file_path
-        pyautogui.write(path)
-        pyautogui.press('enter')
