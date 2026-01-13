@@ -1,0 +1,43 @@
+name: Pytest CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:   # Дозволяє запускати вручну через GitHub Actions
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    env:
+      API_USER: ${{ secrets.API_USER }}
+      API_PASSWORD: ${{ secrets.API_PASSWORD }}
+      BASE_URL: ${{ secrets.BASE_URL }}
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install allure-pytest
+
+    - name: Run tests with Pytest
+      run: |
+        pytest -v --alluredir=allure-results
+
+    - name: Publish Allure Report
+      uses: mikeal/publish-to-github-action@v0
+      with:
+        args: |
+          allure generate allure-results --clean
+          allure open
