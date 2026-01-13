@@ -38,7 +38,7 @@ jobs:
         Xvfb :99 -screen 0 1920x1080x24 &
 
     - name: Install Allure CLI
-      uses: allure-framework/allure-action@v4
+      uses: allure-framework/allure-action@master
       with:
         version: 4.2.0
 
