@@ -1,3 +1,4 @@
+
 name: Run Pytest with Allure and Publish
 
 on:
@@ -9,10 +10,10 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    
+
+    # потрібно для пушу у gh-pages
     permissions:
       contents: write
-
 
     env:
       API_USER: ${{ secrets.API_USER }}
@@ -21,6 +22,12 @@ jobs:
       DISPLAY: :99
 
     steps:
+      - name: Debug event and ref
+        run: |
+          echo "event_name=${{ github.event_name }}"
+          echo "ref=${{ github.ref }}"
+          echo "ref_name=${{ github.ref_name }}"
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -33,16 +40,14 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install allure-pytest
 
+      # Якщо у тебе Chrome завжди headless, Xvfb можна прибрати.
+      # Якщо час від часу не-headless — залиш цей крок.
       - name: Start virtual display (Xvfb)
         run: |
           sudo apt-get update
           sudo apt-get install -y xvfb
           Xvfb :99 -screen 0 1920x1080x24 &
-
-      - name: Install pytest Allure plugin
-        run: pip install pytest allure-pytest
 
       - name: Run tests with Allure results
         run: |
@@ -58,9 +63,8 @@ jobs:
           website: gh-pages-dir
           reports-site-path: builds/tests
 
-      
       - name: Deploy Allure report to GitHub Pages
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: always()
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -70,3 +74,8 @@ jobs:
           user_email: github-actions@github.com
           force_orphan: true
 
+      - name: Add report link to summary
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          echo "### 🧪 Allure Report" >> $GITHUB_STEP_SUMMARY
+          echo "URL (приклад для останнього ран-а): https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/builds/tests/$(ls gh-pages-dir/builds/tests | sort -n | tail -1)/index.html" >> $GITHUB_STEP_SUMMARY
