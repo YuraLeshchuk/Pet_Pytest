@@ -1,9 +1,0 @@
-2026-01-12 16:25:09,965 - LOGGER - INFO - Starting test: tests/ui/test_login.py::test_1
-2026-01-12 16:25:09,965 - LOGGER - INFO - Initialized WebDriver
-2026-01-12 16:25:45,518 - LOGGER - INFO - UI test tests/ui/test_login.py::test_1 finished
-2026-01-12 16:25:45,518 - LOGGER - INFO - *******************************************************
-2026-01-12 16:25:45,518 - LOGGER - INFO - **************** TEST SCENARIO SUMMARY ****************
-2026-01-12 16:25:45,518 - LOGGER - INFO - *******************************************************
-2026-01-12 16:25:45,518 - LOGGER - INFO -     TOTAL CHECKPOINTS: 0
-2026-01-12 16:25:45,524 - LOGGER - INFO -     TOTAL WARNINGS: 0
-2026-01-12 16:25:45,524 - LOGGER - INFO -     TOTAL EXCEPTIONS: 0
