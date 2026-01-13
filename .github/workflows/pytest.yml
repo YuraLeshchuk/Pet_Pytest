@@ -1,41 +1,62 @@
-name: Run Pytest with Allure
+name: Run Pytest and Publish Allure Report
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   pull_request:
-    branches: [main]
 
 jobs:
-  test:
+  pytest:
     runs-on: ubuntu-latest
 
-    env:
-      API_USER: ${{ secrets.API_USER }}
-      API_PASSWORD: ${{ secrets.API_PASSWORD }}
-      BASE_URL: ${{ secrets.BASE_URL }}
-
     steps:
-      - name: Checkout repo
+      # 1️⃣ Клон репо
+      - name: Checkout repository
         uses: actions/checkout@v3
 
+      # 2️⃣ Налаштувати Python
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.12'
 
+      # 3️⃣ Встановити залежності
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install allure-pytest
+          sudo apt-get update && sudo apt-get install -y unzip wget
 
+      # 4️⃣ Встановити Allure CLI
+      - name: Install Allure
+        run: |
+          wget https://github.com/allure-framework/allure2/releases/download/2.25.0/allure-2.25.0.zip
+          unzip allure-2.25.0.zip -d allure
+          sudo ln -s $PWD/allure/bin/allure /usr/bin/allure
+
+      # 5️⃣ Задати secrets для тестів
+      - name: Set environment variables
+        run: |
+          echo "API_USER=${{ secrets.API_USER }}" >> $GITHUB_ENV
+          echo "API_PASSWORD=${{ secrets.API_PASSWORD }}" >> $GITHUB_ENV
+          echo "BASE_URL=${{ secrets.BASE_URL }}" >> $GITHUB_ENV
+
+      # 6️⃣ Запустити тести з генерацією Allure результатів
       - name: Run Pytest with Allure
         run: |
+          mkdir -p allure-results
           pytest -v --alluredir=allure-results
 
-      - name: Upload Allure results
-        uses: actions/upload-artifact@v3
+      # 7️⃣ Згенерувати HTML звіт
+      - name: Generate Allure HTML report
+        run: |
+          allure generate allure-results --clean -o allure-report
+
+      # 8️⃣ Публікація на GitHub Pages
+      - name: Deploy Allure report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          name: allure-results
-          path: allure-results
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./allure-report
+          # галочка: overwrite старий звіт на кожному пуші
