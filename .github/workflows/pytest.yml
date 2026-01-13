@@ -60,11 +60,14 @@ jobs:
           website: gh-pages-dir
           reports-site-path: builds/tests
 
-      - name: Publish Allure test report
+      - name: Deploy Allure report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
-        if: ${{ always() && (steps.allure-report.outcome == 'success') }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: ./allure-report
-          destination_dir: ${{ steps.allure-report.outputs.reports-site-path }}
+          allow_empty_commit: true
+          force_orphan: true
+          user_name: github-actions[bot]
+          user_email: github-actions[bot]@users.noreply.github.com
+          commit_message: "Deploy Allure report"
