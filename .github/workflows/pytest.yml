@@ -42,32 +42,17 @@ jobs:
           mkdir -p allure-results
           pytest tests/ --alluredir=allure-results -v
 
-      - name: Prepare for Allure report generation
-        # Checkout the gh-pages branch to collect previous history
-        uses: actions/checkout@v4
-        with:
-          ref: gh-pages
-          path: gh-pages
-          # allow first run even if gh-pages doesn't exist
-          continue-on-error: true
-
-      - name: Generate Allure test report
-        uses: andgineer/allure-report@v3.6
-        id: allure-report
-        if: always()
-        with:
-          allure-results: allure-results
-          website: gh-pages-dir
-          reports-site-path: builds/tests
+      - name: Generate Allure report
+        run: |
+          mkdir -p allure-report
+          allure generate allure-results --clean -o allure-report
 
       - name: Deploy Allure report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
           publish_dir: ./allure-report
-          allow_empty_commit: true
+          publish_branch: gh-pages
+          user_name: github-actions
+          user_email: github-actions@github.com
           force_orphan: true
-          user_name: github-actions[bot]
-          user_email: github-actions[bot]@users.noreply.github.com
-          commit_message: "Deploy Allure report"
