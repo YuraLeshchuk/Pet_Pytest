@@ -37,15 +37,22 @@ jobs:
           sudo apt-get install -y xvfb
           Xvfb :99 -screen 0 1920x1080x24 &
 
+      - name: Install pytest Allure plugin
+        run: pip install pytest allure-pytest
+
       - name: Run tests with Allure results
         run: |
           mkdir -p allure-results
           pytest tests/ --alluredir=allure-results -v
 
-      - name: Generate Allure report
-        run: |
-          mkdir -p allure-report
-          allure generate allure-results --clean -o allure-report
+      - name: Generate Allure test report
+        uses: andgineer/allure-report@v3.6
+        id: allure-report
+        if: always()
+        with:
+          allure-results: allure-results
+          website: gh-pages-dir
+          reports-site-path: builds/tests
 
       - name: Deploy Allure report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
