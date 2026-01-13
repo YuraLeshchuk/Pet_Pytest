@@ -1,3 +1,0 @@
-2025-03-26 16:01:44,175 - LOGGER - INFO - Starting test: tests/test_employee.py::test_01_create_user
-2025-03-26 16:01:44,177 - LOGGER - INFO - STEP 01: Open Login Page
-2025-03-26 16:01:44,769 - LOGGER - INFO - STEP 02: Login with default user

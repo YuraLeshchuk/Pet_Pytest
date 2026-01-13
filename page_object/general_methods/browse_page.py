@@ -36,9 +36,11 @@ class BrowsePage:
 
     def fill_in_with_value(self, field, value, **kwargs):
         timeout = kwargs.get('timeout', 20)
+        force_clear = kwargs.get('force_clear', False)
         field_element = self.get_element(field, timeout=timeout)
         self.click_btn(field, timeout=timeout)
-        field_element.clear()
+        if force_clear:
+            field_element.clear()
         field_element.send_keys(value)
 
     def delay_for_loading(self, **kwargs):
