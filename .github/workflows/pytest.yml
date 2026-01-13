@@ -9,6 +9,10 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+
 
     env:
       API_USER: ${{ secrets.API_USER }}
