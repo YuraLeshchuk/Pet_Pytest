@@ -4,11 +4,13 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options
 from utils.logger import Logger, initialize_logger
 from utils import globals
 from config import read_config
 from dotenv import load_dotenv
 from utils.api_client import APIClient
+
 
 # Завантаження змінних середовища
 load_dotenv()
@@ -57,7 +59,7 @@ def setup_test_logging(request):
 @pytest.fixture(scope="function")
 def driver(request):
     """Ініціалізація Chrome WebDriver з логуванням."""
-    options = webdriver.ChromeOptions()
+    options = Options()
     if read_config.driver_mode() == "true":
         options.add_argument("--headless")
     options.add_argument("--no-sandbox")

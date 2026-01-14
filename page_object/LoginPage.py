@@ -27,7 +27,7 @@ class LoginPage(BrowsePage):
         self.get_page()
 
     def verify_page_title(self):
-        verify.verify_element_text(self.driver, self.page_title, "Login`")
+        verify.verify_element_text(self.driver, self.page_title, "Login")
 
     def click_login_btn(self):
         self.click_btn(self.login_btn)
