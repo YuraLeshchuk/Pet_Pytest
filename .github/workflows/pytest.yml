@@ -14,6 +14,9 @@ jobs:
     # потрібно для пушу у gh-pages
     permissions:
       contents: write
+      pages: write
+      id-token: write
+
 
     env:
       API_USER: ${{ secrets.API_USER }}
@@ -64,7 +67,6 @@ jobs:
           reports-site-path: builds/tests
 
       - name: Deploy Allure report to GitHub Pages
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -72,7 +74,7 @@ jobs:
           publish_branch: gh-pages
           user_name: github-actions
           user_email: github-actions@github.com
-          force_orphan: true
+          force_orphan: false
 
       - name: Add report link to summary
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
