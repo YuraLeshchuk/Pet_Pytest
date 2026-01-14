@@ -1,0 +1,15 @@
+INFO     LOGGER:conftest.py:49 Starting test: tests/api/test_api_1.py::test_create_user
+INFO     LOGGER:conftest.py:91 Initialized API client
+INFO     LOGGER:api_client.py:14 [POST] https://demoqa.com/Account/v1/GenerateToken
+INFO     LOGGER:api_client.py:21 Status: 200 | Time: 1.45s
+WARNING  LOGGER:api_client.py:58 Token not found in response
+INFO     LOGGER:api_client.py:14 [POST] https://demoqa.com/Account/v1/User
+INFO     LOGGER:api_client.py:21 Status: 406 | Time: 0.42s
+INFO     LOGGER:conftest.py:104 API test tests/api/test_api_1.py::test_create_user finished
+INFO     LOGGER:logger.py:109 *******************************************************
+INFO     LOGGER:logger.py:110 **************** TEST SCENARIO SUMMARY ****************
+INFO     LOGGER:logger.py:111 *******************************************************
+INFO     LOGGER:logger.py:112     TOTAL CHECKPOINTS: 0
+INFO     LOGGER:logger.py:113     TOTAL WARNINGS: 0
+INFO     LOGGER:logger.py:114     TOTAL EXCEPTIONS: 0
+INFO     LOGGER:api_client.py:108 API session closed.

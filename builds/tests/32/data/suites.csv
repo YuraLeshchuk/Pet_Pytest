@@ -1,0 +1,5 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","0","test_delete_user","tests.api","Wed Jan 14 15:28:13 GMT 2026","broken","Wed Jan 14 15:28:13 GMT 2026","","test_api_1","",""
+"","420","test_create_user","tests.api","Wed Jan 14 15:28:11 GMT 2026","failed","Wed Jan 14 15:28:12 GMT 2026","","test_api_1","",""
+"","0","test_1","tests.ui","Wed Jan 14 15:28:27 GMT 2026","broken","Wed Jan 14 15:28:27 GMT 2026","","test_login","",""
+"","0","test_01_create_user","tests.ui","Wed Jan 14 15:28:13 GMT 2026","broken","Wed Jan 14 15:28:13 GMT 2026","","test_employee","",""
