@@ -3,7 +3,6 @@ from datetime import datetime
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 from utils.logger import Logger, initialize_logger
 from utils import globals
@@ -67,7 +66,7 @@ def driver(request):
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--window-size=1920,1080")
 
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+    driver = webdriver.Chrome(options=options)
     driver.maximize_window()
     driver.base_url = read_config.get_url()
 
