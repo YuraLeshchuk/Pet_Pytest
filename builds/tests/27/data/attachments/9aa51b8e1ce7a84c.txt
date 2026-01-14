@@ -1,0 +1,9 @@
+INFO     LOGGER:conftest.py:48 Starting test: tests/ui/test_login.py::test_1
+INFO     LOGGER:conftest.py:75 Initialized WebDriver
+INFO     LOGGER:conftest.py:79 UI test tests/ui/test_login.py::test_1 finished
+INFO     LOGGER:logger.py:109 *******************************************************
+INFO     LOGGER:logger.py:110 **************** TEST SCENARIO SUMMARY ****************
+INFO     LOGGER:logger.py:111 *******************************************************
+INFO     LOGGER:logger.py:112     TOTAL CHECKPOINTS: 0
+INFO     LOGGER:logger.py:113     TOTAL WARNINGS: 0
+INFO     LOGGER:logger.py:114     TOTAL EXCEPTIONS: 0
