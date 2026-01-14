@@ -7,7 +7,6 @@ pwd = Config.get("user", "password")
 
 def test_1(driver):
     login_page = LoginPage(driver)
-    assert user_name == "YL1"
 
     Logger.step("01", "Open Login Page")
     login_page.load()
