@@ -10,6 +10,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    container:
+      image: selenium/standalone-chrome:latest
+
     # потрібно для пушу у gh-pages
     permissions:
       contents: write
@@ -38,6 +41,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+
       # Якщо у тебе Chrome завжди headless, Xvfb можна прибрати.
       # Якщо час від часу не-headless — залиш цей крок.
       - name: Start virtual display (Xvfb)
@@ -45,10 +49,12 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y xvfb
           Xvfb :99 -screen 0 1920x1080x24 &
+
       - name: Run tests with Allure results
         run: |
           mkdir -p allure-results
           pytest tests/ --alluredir=allure-results -v
+
       - name: Generate Allure test report
         uses: andgineer/allure-report@v3.6
         id: allure-report
