@@ -59,12 +59,11 @@ jobs:
 
       - name: Generate Allure test report
         uses: andgineer/allure-report@v3.6
-        id: allure-report
         if: always()
         with:
           allure-results: allure-results
           website: gh-pages-dir
-          reports-site-path: builds/tests
+          reports-site-path: .
 
       - name: Deploy Allure report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
@@ -72,9 +71,8 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: gh-pages-dir
           publish_branch: gh-pages
-          user_name: github-actions
-          user_email: github-actions@github.com
           force_orphan: false
+          keep_files: true
 
       - name: Add report link to summary
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
