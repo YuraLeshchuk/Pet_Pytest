@@ -19,11 +19,21 @@ class Config:
     _config = None
 
     @classmethod
-    def load(cls, path="config.ini"):
+    def load(cls):
         if cls._config is None:
             config = configparser.ConfigParser()
-            config.read(path, encoding="utf-8")
+
+            project_root = os.path.dirname(
+                os.path.dirname(os.path.abspath(__file__))
+            )
+            config_path = os.path.join(project_root, "config", "config.ini")
+
+            if not os.path.exists(config_path):
+                raise FileNotFoundError(f"Config file not found: {config_path}")
+
+            config.read(config_path, encoding="utf-8")
             cls._config = config
+
         return cls._config
 
     @classmethod

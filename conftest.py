@@ -10,8 +10,6 @@ from config import read_config
 from dotenv import load_dotenv
 from utils.api_client import APIClient
 
-
-# Завантаження змінних середовища
 load_dotenv()
 
 # Створюємо унікальну директорію для запуску

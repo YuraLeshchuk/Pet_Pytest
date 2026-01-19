@@ -3,6 +3,7 @@ from page_object.general_methods.browse_page import BrowsePage
 from page_object.ProfilePage import ProfilePage
 from utils import verify
 from utils.logger import Logger
+import os
 
 
 class LoginPage(BrowsePage):
@@ -16,8 +17,6 @@ class LoginPage(BrowsePage):
     firstname_field = (By.CSS_SELECTOR, 'input#firstname')
     lastname_field = (By.CSS_SELECTOR, 'input#lastname')
     login_error_form = (By.CSS_SELECTOR, 'p#name.mb-1')
-    login = "YL1"
-    psw = "974501Le##"
 
     def __init__(self, driver):
         super().__init__(driver)
@@ -38,7 +37,8 @@ class LoginPage(BrowsePage):
     def fill_psw(self, psw: str):
         self.fill_in_with_value(self.psw_field, psw)
 
-    def login_with_valid_credentials(self, user_name = login, psw = psw):
+    def login_with_valid_credentials(self, user_name, psw):
+        r = user_name
         self.fill_user_name(user_name)
         self.fill_psw(psw)
         self.click_login_btn()
@@ -58,4 +58,3 @@ class LoginPage(BrowsePage):
         self.fill_user_name(usr_name)
         self.fill_psw(pwd)
         self.click_btn(self.register_btn)
-
