@@ -1,7 +1,7 @@
 import os
 import openpyxl
 
-path = os.path.abspath(os.path.join(os.getcwd(), ".."))
+path = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
 
 def get_row_count(file_path, sheet_name):

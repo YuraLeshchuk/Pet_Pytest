@@ -1,6 +1,7 @@
 import os
 import time
 
+import pyautogui
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
@@ -48,3 +49,16 @@ class BrowsePage:
 
     def select(self, element, value):
         return Select(element).select_by_value(value)
+
+    def load_file(self, file_path, **kwargs):
+        timeout = kwargs.get('timeout', 2)
+        time.sleep(timeout)
+        path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..")) + file_path
+        pyautogui.write(path)
+        pyautogui.press('enter')
+
+    def scroll_to_element(self, locator, timeout=10):
+        element = WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located(locator))
+        self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", element)
+        WebDriverWait(self.driver, timeout).until(EC.visibility_of(element))
+        return element
