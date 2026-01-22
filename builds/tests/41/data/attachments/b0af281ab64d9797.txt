@@ -1,0 +1,23 @@
+INFO     LOGGER:conftest.py:46 Starting test: tests/api/test_book_store.py::test_add_book_to_profile[api0]
+INFO     LOGGER:conftest.py:88 Initialized API client
+INFO     LOGGER:logger.py:91 Login with user: y
+INFO     LOGGER:api_client.py:14 [POST] https://demoqa.com/Account/v1/GenerateToken
+INFO     LOGGER:api_client.py:21 Status: 200 | Time: 1.35s
+INFO     LOGGER:api_client.py:56 Token saved: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6InkiLCJwYXNzd29yZCI6IlBKUjNRQGZNOEBCd2lLaCIsImlhdCI6MTc2OTA5MjUwN30.bhj6HdpFopG57qgVWB06sfqU3yXGDS-OVL_xiIrByDg
+INFO     LOGGER:logger.py:67 STEP 2: Get random ISBN
+INFO     LOGGER:api_client.py:14 [GET] https://demoqa.com/BookStore/v1/Books
+INFO     LOGGER:api_client.py:21 Status: 200 | Time: 0.10s
+INFO     LOGGER:logger.py:91 ISBN = 9781449325862
+INFO     LOGGER:logger.py:67 STEP 3: Add book by ISBN
+INFO     LOGGER:api_client.py:14 [POST] https://demoqa.com/BookStore/v1/Books
+INFO     LOGGER:api_client.py:21 Status: 201 | Time: 0.26s
+INFO     LOGGER:logger.py:76 CHECKPOINT 1: ASSERTION PASSED. Actual string: Created is equal to expected: Created
+INFO     LOGGER:logger.py:76 CHECKPOINT 2: ASSERTION PASSED. Actual string: 201 is equal to expected: 201
+INFO     LOGGER:api_client.py:109 API session closed.
+INFO     LOGGER:conftest.py:119 Test tests/api/test_book_store.py::test_add_book_to_profile[api0] finished
+INFO     LOGGER:logger.py:109 *******************************************************
+INFO     LOGGER:logger.py:110 **************** TEST SCENARIO SUMMARY ****************
+INFO     LOGGER:logger.py:111 *******************************************************
+INFO     LOGGER:logger.py:112     TOTAL CHECKPOINTS: 0
+INFO     LOGGER:logger.py:113     TOTAL WARNINGS: 0
+INFO     LOGGER:logger.py:114     TOTAL EXCEPTIONS: 0

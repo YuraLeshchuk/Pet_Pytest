@@ -1,0 +1,16 @@
+INFO     LOGGER:conftest.py:46 Starting test: tests/api/test_users.py::test_create_user
+INFO     LOGGER:conftest.py:88 Initialized API client
+INFO     LOGGER:logger.py:91 Login with user: YL1
+INFO     LOGGER:api_client.py:14 [POST] https://demoqa.com/Account/v1/GenerateToken
+INFO     LOGGER:api_client.py:21 Status: 200 | Time: 1.05s
+INFO     LOGGER:api_client.py:56 Token saved: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IllMMSIsInBhc3N3b3JkIjoiOTc0NTAxTGUjIyIsImlhdCI6MTc2OTA5MjUwOX0.lXuWX-F9vmZI2nOE5RKoaPq_EFiaSVsG5MPWmPA2FGU
+INFO     LOGGER:api_client.py:14 [POST] https://demoqa.com/Account/v1/User
+INFO     LOGGER:api_client.py:21 Status: 406 | Time: 0.21s
+INFO     LOGGER:api_client.py:109 API session closed.
+INFO     LOGGER:conftest.py:119 Test tests/api/test_users.py::test_create_user finished
+INFO     LOGGER:logger.py:109 *******************************************************
+INFO     LOGGER:logger.py:110 **************** TEST SCENARIO SUMMARY ****************
+INFO     LOGGER:logger.py:111 *******************************************************
+INFO     LOGGER:logger.py:112     TOTAL CHECKPOINTS: 0
+INFO     LOGGER:logger.py:113     TOTAL WARNINGS: 0
+INFO     LOGGER:logger.py:114     TOTAL EXCEPTIONS: 0

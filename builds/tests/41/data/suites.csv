@@ -1,0 +1,6 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","0","test_01_register_user","tests.ui","Thu Jan 22 14:35:15 GMT 2026","broken","Thu Jan 22 14:35:15 GMT 2026","","test_registration","",""
+"","355","test_add_book_to_profile[api0]","tests.api","Thu Jan 22 14:35:08 GMT 2026","passed","Thu Jan 22 14:35:09 GMT 2026","","test_book_store","",""
+"","0","test_delete_user","tests.api","Thu Jan 22 14:35:11 GMT 2026","broken","Thu Jan 22 14:35:11 GMT 2026","","test_users","",""
+"","207","test_create_user","tests.api","Thu Jan 22 14:35:10 GMT 2026","failed","Thu Jan 22 14:35:10 GMT 2026","","test_users","",""
+"","0","test_login","tests.ui","Thu Jan 22 14:35:11 GMT 2026","broken","Thu Jan 22 14:35:11 GMT 2026","","test_login","",""
