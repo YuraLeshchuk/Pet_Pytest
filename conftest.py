@@ -96,16 +96,25 @@ def api(request):
         password = os.getenv("API_PASSWORD")
 
     client = APIClient(base_url)
-    Logger.info(f'Login with user: {user_name}')
-    client.login(user_name, password)
+    try:
+        Logger.info(f'Login with user: {user_name}')
+        client.login(user_name, password)
+    except Exception as e:
+        logger.error(f"Login failed: {e}")
+        # не кидати виняток, щоб teardown міг спрацювати
+        yield None
+        return
 
     try:
         yield client
     finally:
+        # Завжди намагаємося закрити клієнта, навіть якщо тест упав
         try:
-            client.close()
+            if client:
+                client.close()
         except Exception as e:
             logger.error(f"Error closing API client: {e}")
+
         try:
             logger.info(f"Test {request.node.nodeid} finished")
             Logger.log_test_summary()
