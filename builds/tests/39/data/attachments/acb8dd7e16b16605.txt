@@ -1,0 +1,15 @@
+INFO     LOGGER:conftest.py:46 Starting test: tests/api/test_book_store.py::test_add_book_to_profile[api0]
+INFO     LOGGER:conftest.py:88 Initialized API client
+INFO     LOGGER:logger.py:91 Login with user: y
+INFO     LOGGER:api_client.py:14 [POST] https://demoqa.com/Account/v1/GenerateToken
+INFO     LOGGER:api_client.py:21 Status: 200 | Time: 1.27s
+INFO     LOGGER:api_client.py:56 Token saved: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6InkiLCJwYXNzd29yZCI6IlBKUjNRQGZNOEBCd2lLaCIsImlhdCI6MTc2OTA5MTc5OH0.gNq98Ljlfz3cRJEs5vx8Ai0irnHq4IGa8nch7C4WgSE
+INFO     LOGGER:logger.py:67 STEP 2: Get random ISBN
+INFO     LOGGER:api_client.py:14 [GET] https://demoqa.com/BookStore/v1/Books
+INFO     LOGGER:api_client.py:21 Status: 200 | Time: 0.09s
+INFO     LOGGER:logger.py:91 ISBN = 9781449365035
+INFO     LOGGER:logger.py:67 STEP 3: Add book by ISBN
+INFO     LOGGER:api_client.py:14 [POST] https://demoqa.com/BookStore/v1/Books
+INFO     LOGGER:api_client.py:21 Status: 400 | Time: 0.27s
+ERROR    LOGGER:logger.py:98 AssertionError: Actual string: Bad Request is NOT equal to expected: Created
+ERROR    LOGGER:logger.py:98 AssertionError: Actual string: 400 is NOT equal to expected: 201
