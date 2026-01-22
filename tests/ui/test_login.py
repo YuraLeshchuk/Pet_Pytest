@@ -1,9 +1,10 @@
 from page_object.LoginPage import LoginPage
 from utils.logger import Logger
+from utils.env import Env
 import os
 
-user_name = os.getenv("UI_USER_NAME")
-password = os.getenv("UI_USER_PASSWORD")
+user_name = Env.ui_user()
+password = Env.ui_password()
 
 
 def test_login(driver):

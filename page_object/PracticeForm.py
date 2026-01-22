@@ -5,6 +5,7 @@ from page_object.general_methods.browse_page import BrowsePage
 from utils import verify
 from utils.logger import Logger
 from utils import xl_utils
+from test_data.models.users import User
 
 
 class PracticeForm(BrowsePage):
@@ -30,6 +31,7 @@ class PracticeForm(BrowsePage):
         verify.verify_element_text(self.driver, self.page_title, "Practice Form")
 
     def click_submit_btn(self):
+        self.scroll_to_element(self.submit_btn)
         self.click_btn(self.submit_btn)
 
     def select_gender(self, gender: str):
@@ -38,7 +40,7 @@ class PracticeForm(BrowsePage):
             gender = gender.capitalize()
         self.click_btn((By.XPATH, f'//input[@value="{gender}"]/..'))
 
-    def create_user_from_xl(self, file, sheet_name, row_id):
+    def fill_in_user_info_from_file(self, file, sheet_name, row_id):
         columns = xl_utils.get_column_count(file, sheet_name)
         row_index = xl_utils.get_row_index(file, sheet_name, row_id)
         for i in range(1, columns + 1):
@@ -51,8 +53,6 @@ class PracticeForm(BrowsePage):
             elif xl_utils.read_data(file, sheet_name, 1, i) == "phone":
                 self.fill_in_with_value(self.phone_field, xl_utils.read_data(file, sheet_name, row_index, i))
 
-        self.click_submit_btn()
-
     def close_submit_form(self):
         self.click_btn(self.close_form_btn)
 
@@ -60,3 +60,9 @@ class PracticeForm(BrowsePage):
         self.scroll_to_element(self.upload_field)
         path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..")) + photo_path
         self.get_element(self.upload_field).send_keys(path)
+
+    def fill_in_user_info(self, user: User):
+        self.fill_in_with_value(self.firstname_field, user.first_name)
+        self.fill_in_with_value(self.lastname_field, user.last_name)
+        self.select_gender(user.gender)
+        self.fill_in_with_value(self.phone_field, user.phone_number)

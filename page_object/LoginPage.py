@@ -38,7 +38,6 @@ class LoginPage(BrowsePage):
         self.fill_in_with_value(self.psw_field, psw)
 
     def login_with_valid_credentials(self, user_name, psw):
-        r = user_name
         self.fill_user_name(user_name)
         self.fill_psw(psw)
         self.click_login_btn()

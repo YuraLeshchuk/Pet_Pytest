@@ -75,6 +75,7 @@ class APIClient:
         self._log_request("POST", url, json=data, **kwargs)
 
         start = time.time()
+        r = self.session
         response = self.session.post(url, json=data, **kwargs)
         elapsed = time.time() - start
 

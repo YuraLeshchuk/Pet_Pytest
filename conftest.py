@@ -2,7 +2,6 @@ import os
 from datetime import datetime
 import pytest
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from utils.logger import Logger, initialize_logger
 from utils import globals
@@ -88,20 +87,23 @@ def api(request):
     logger, _ = setup_test_logging(request)
     logger.info("Initialized API client")
 
-    # --- Збір параметрів ---
-    user_name = os.getenv("API_user_name") or "default@example.com"
-    password = os.getenv("API_PASSWORD") or "password123"
-    base_url = os.getenv("BASE_URL") or "https://demoqa.com"
+    base_url = os.getenv("BASE_URL")
 
-    # --- Ініціалізація API клієнта ---
+    if hasattr(request, "param"):
+        user_name, password = request.param
+    else:
+        user_name = os.getenv("API_USER")
+        password = os.getenv("API_PASSWORD")
+
     client = APIClient(base_url)
+    Logger.info(f'Login with user: {user_name}')
     client.login(user_name, password)
 
     yield client
-
-    logger.info(f"API test {request.node.nodeid} finished")
-    Logger.log_test_summary()
     client.close()
+
+    logger.info(f"Test {request.node.nodeid} finished")
+    Logger.log_test_summary()
 
 
 # ==========================================================
@@ -127,3 +129,7 @@ def pytest_addoption(parser):
     parser.addoption("--email", action="store", help="User email for login")
     parser.addoption("--password", action="store", help="User password for login")
     parser.addoption("--base-url", action="store", help="Base API URL")
+
+pytest_plugins = [
+    "fixtures.user_fixtures",
+]
