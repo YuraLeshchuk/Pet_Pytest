@@ -1,0 +1,15 @@
+INFO     LOGGER:conftest.py:46 Starting test: tests/api/test_users.py::test_delete_user
+INFO     LOGGER:conftest.py:88 Initialized API client
+INFO     LOGGER:logger.py:91 Login with user: YL1
+INFO     LOGGER:api_client.py:14 [POST] https://demoqa.com/Account/v1/GenerateToken
+INFO     LOGGER:api_client.py:21 Status: 200 | Time: 0.96s
+INFO     LOGGER:api_client.py:56 Token saved: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IllMMSIsInBhc3N3b3JkIjoiOTc0NTAxTGUjIyIsImlhdCI6MTc2OTA5MTU3MX0.azbas8sh7JbChe32SaUYsCxIHmHuUfBesXXja1Q0QrM
+INFO     LOGGER:logger.py:76 CHECKPOINT 4: Read dictionary from text file shared_variables.txt
+INFO     LOGGER:api_client.py:109 API session closed.
+INFO     LOGGER:conftest.py:105 Test tests/api/test_users.py::test_delete_user finished
+INFO     LOGGER:logger.py:109 *******************************************************
+INFO     LOGGER:logger.py:110 **************** TEST SCENARIO SUMMARY ****************
+INFO     LOGGER:logger.py:111 *******************************************************
+INFO     LOGGER:logger.py:112     TOTAL CHECKPOINTS: 0
+INFO     LOGGER:logger.py:113     TOTAL WARNINGS: 0
+INFO     LOGGER:logger.py:114     TOTAL EXCEPTIONS: 0
