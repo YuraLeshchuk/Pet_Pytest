@@ -43,13 +43,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Якщо у тебе Chrome завжди headless, Xvfb можна прибрати.
-      # Якщо час від часу не-headless — залиш цей крок.
       - name: Start Xvfb
-      - run: |
-      - sudo apt-get install xvfb
-      - Xvfb :99 &
-      - export DISPLAY=:99
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb
+          Xvfb :99 &
+          echo "DISPLAY=:99" >> $GITHUB_ENV
 
       - name: Run tests with Allure results
         run: |
