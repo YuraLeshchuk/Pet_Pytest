@@ -45,11 +45,11 @@ jobs:
 
       # Якщо у тебе Chrome завжди headless, Xvfb можна прибрати.
       # Якщо час від часу не-headless — залиш цей крок.
-      - name: Start virtual display (Xvfb)
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y xvfb
-          Xvfb :99 -screen 0 1920x1080x24 &
+      - name: Start Xvfb
+      - run: |
+      - sudo apt-get install xvfb
+      - Xvfb :99 &
+      - export DISPLAY=:99
 
       - name: Run tests with Allure results
         run: |
