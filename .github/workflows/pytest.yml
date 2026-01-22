@@ -43,13 +43,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Start Xvfb
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y xvfb
-          Xvfb :99 &
-          echo "DISPLAY=:99" >> $GITHUB_ENV
-
       - name: Run tests with Allure results
         run: |
           mkdir -p allure-results

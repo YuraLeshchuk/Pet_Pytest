@@ -66,9 +66,9 @@ class AddEmployeeModal(EmployeesPage):
         self.click_btn(self.next_btn_xpath)
         Logger.info("Next button clicked")
 
-    def load_photo(self, photo_path):
-        self.get_element(self.photo_frame_xpath).click()
-        self.load_file(photo_path)
+    # def load_photo(self, photo_path):
+    #     self.get_element(self.photo_frame_xpath).click()
+    #     self.load_file(photo_path)
 
     def crop_photo(self, x, y):
         frame_location = self.get_element(self.edit_photo_frame_xpath).location
