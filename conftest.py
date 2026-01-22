@@ -99,11 +99,18 @@ def api(request):
     Logger.info(f'Login with user: {user_name}')
     client.login(user_name, password)
 
-    yield client
-    client.close()
-
-    logger.info(f"Test {request.node.nodeid} finished")
-    Logger.log_test_summary()
+    try:
+        yield client
+    finally:
+        try:
+            client.close()
+        except Exception as e:
+            logger.error(f"Error closing API client: {e}")
+        try:
+            logger.info(f"Test {request.node.nodeid} finished")
+            Logger.log_test_summary()
+        except Exception as e:
+            logger.error(f"Error during logging test summary: {e}")
 
 
 # ==========================================================
