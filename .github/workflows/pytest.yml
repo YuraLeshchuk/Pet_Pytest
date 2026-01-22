@@ -65,9 +65,3 @@ jobs:
           publish_dir: gh-pages-dir
           publish_branch: gh-pages
           keep_files: true
-
-      - name: Add report link to summary
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: |
-          echo "### 🧪 Allure Report" >> $GITHUB_STEP_SUMMARY
-          echo "URL (приклад для останнього ран-а): https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/builds/tests/$(ls gh-pages-dir/builds/tests | sort -n | tail -1)/index.html" >> $GITHUB_STEP_SUMMARY
