@@ -1,55 +1,28 @@
 import ast
+
 from utils.logger import Logger
+from utils.path_utils import get_project_root
+
+DATA_DIR = get_project_root() / "test_data"
+DATA_DIR.mkdir(exist_ok=True)
 
 
-def read_dict_from_text_file(file_location):
-    """
-    Read dictionary from text file.
+def read_dict_from_text_file(file_name: str) -> dict:
+    file_path = DATA_DIR / file_name
 
-    .. function:: read_dict_from_text_file
-        :param file_location: source file absloute path
-        :type file_location: string
+    Logger.checkpoint(f"Read dictionary from text file {file_path}")
 
-    Returns:
-        :param dict_data: dictonary data
-        :type dict_data: dict
+    if not file_path.exists():
+        return {}
 
-    Examples:
-
-        >>> textfile_utils.read_dict_from_text_file(file_location)
-
-    |
-    |
-    """
-    Logger.checkpoint(f"Read dictionary from text file {file_location}")
-    src_file = open(file_location, "r")
-    contents = src_file.read()
-    dictionary = ast.literal_eval(contents)
-    src_file.close()
-    return dictionary
+    with open(file_path, "r", encoding="utf-8") as f:
+        return ast.literal_eval(f.read())
 
 
-def save_dict_to_text_file(file_location, dict_data):
-    """
-    Save dictionary data to text file.
+def save_dict_to_text_file(file_name: str, dict_data: dict) -> None:
+    file_path = DATA_DIR / file_name
 
-    .. function:: save_dict_to_text_file
-        :param file_location: source file absloute path
-        :type file_location: string
-        :param dict_data: dictonary data
-        :type dict_data: dict
+    Logger.checkpoint(f"Save dictionary {dict_data} to text file {file_path}")
 
-    Returns:
-        None
-
-    Examples:
-        >>> textfile_utils.save_dict_to_text_file(file_location, dict_data)
-
-    |
-    |
-    """
-    Logger.checkpoint(
-        f"Save dictionary {dict_data} to text file {file_location}")
-    f = open(file_location, "w")
-    f.write(str(dict_data) + "\n")
-    f.close()
+    with open(file_path, "w", encoding="utf-8") as f:
+        f.write(str(dict_data))

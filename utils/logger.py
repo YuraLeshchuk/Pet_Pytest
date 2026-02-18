@@ -1,15 +1,13 @@
 import logging
 import os
 from datetime import datetime
+
 from utils import globals
 
 _global_logger = None
 
 
 def initialize_logger(log_file_name: str, test_file_dir: str):
-    """
-    Ініціалізація глобального логера.
-    """
     global _global_logger
     if not os.path.exists(test_file_dir):
         os.makedirs(test_file_dir)
@@ -17,16 +15,16 @@ def initialize_logger(log_file_name: str, test_file_dir: str):
     _global_logger = logging.getLogger("LOGGER")
     _global_logger.setLevel(logging.INFO)
 
-    # Видаляємо старі хендлери
     if _global_logger.handlers:
         for handler in _global_logger.handlers:
             _global_logger.removeHandler(handler)
 
-    # Додавання FileHandler
     log_file = os.path.join(test_file_dir, log_file_name)
     file_handler = logging.FileHandler(log_file, mode="w", encoding="utf-8")
     file_handler.setLevel(logging.DEBUG)
-    formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+    formatter = logging.Formatter(
+        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    )
     file_handler.setFormatter(formatter)
     _global_logger.addHandler(file_handler)
 
@@ -40,16 +38,11 @@ class Logger:
 
     @staticmethod
     def save_screenshot(driver):
-        """
-        Зберігає скріншот, використовуючи ім'я тесту та часову мітку.
-        Інформація про каталог і назву тесту береться з globals.
-        """
         if not globals.test_file_dir or not globals.test_name:
             _global_logger.error("test_file_dir or test_name is not set in globals.")
             return
 
-        # Формуємо ім'я скріншота
-        timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+        timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         screenshot_name = f"{globals.test_name}_{timestamp}.png"
         screenshot_path = os.path.join(globals.test_file_dir, screenshot_name)
 
@@ -98,7 +91,6 @@ class Logger:
             _global_logger.error(msg)
             globals.list_exceptions.append(msg)
 
-            # Створюємо скріншот, якщо є драйвер
             if driver:
                 Logger.save_screenshot(driver)
         else:

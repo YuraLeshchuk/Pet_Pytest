@@ -1,19 +1,20 @@
 import os
 from datetime import datetime
+
 import pytest
+from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from utils.logger import Logger, initialize_logger
-from utils import globals
+
 from config import read_config
-from dotenv import load_dotenv
+from utils import globals
 from utils.api_client import APIClient
+from utils.logger import Logger, initialize_logger
 
 load_dotenv()
 
-# Створюємо унікальну директорію для запуску
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))  # conftest.py у руті
-RUN_TIMESTAMP = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+RUN_TIMESTAMP = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 TEST_RUN_DIR = os.path.join(PROJECT_ROOT, "reports", f"test_run_{RUN_TIMESTAMP}")
 os.makedirs(TEST_RUN_DIR, exist_ok=True)
 
@@ -23,10 +24,9 @@ os.makedirs(TEST_RUN_DIR, exist_ok=True)
 # ==========================================================
 def setup_test_logging(request):
     """
-    Створює вкладену структуру директорій:
     reports/test_run_<timestamp>/<test_file>/<test_name>/
-    І ініціалізує логування у файлі <test_name>.log
     """
+    globals.list_exceptions = []
     test_file_name = os.path.splitext(os.path.basename(request.node.fspath))[0]
     test_name = request.node.name
 
@@ -48,13 +48,11 @@ def setup_test_logging(request):
     return logger, test_case_dir
 
 
-
 # ==========================================================
 #                    UI FIXTURE (WebDriver)
 # ==========================================================
 @pytest.fixture(scope="function")
 def driver(request):
-    """Ініціалізація Chrome WebDriver з логуванням."""
     options = Options()
     if read_config.driver_mode() == "true":
         options.add_argument("--headless")
@@ -67,7 +65,6 @@ def driver(request):
     driver.maximize_window()
     driver.base_url = read_config.get_url()
 
-    # Ініціалізація логування через утиліту
     logger, _ = setup_test_logging(request)
     logger.info("Initialized WebDriver")
 
@@ -83,7 +80,6 @@ def driver(request):
 # ==========================================================
 @pytest.fixture(scope="function")
 def api(request):
-    """API клієнт, що створює окремий лог-файл для кожного тесту."""
     logger, _ = setup_test_logging(request)
     logger.info("Initialized API client")
 
@@ -97,18 +93,17 @@ def api(request):
 
     client = APIClient(base_url)
     try:
-        Logger.info(f'Login with user: {user_name}')
+        Logger.info(f"Login with user: {user_name}")
         client.login(user_name, password)
     except Exception as e:
         logger.error(f"Login failed: {e}")
-        # не кидати виняток, щоб teardown міг спрацювати
         yield None
         return
 
     try:
         yield client
     finally:
-        # Завжди намагаємося закрити клієнта, навіть якщо тест упав
+
         try:
             if client:
                 client.close()
@@ -125,26 +120,32 @@ def api(request):
 # ==========================================================
 #                       PYTEST HOOKS
 # ==========================================================
-def pytest_runtest_teardown(item):
-    """Перевіряє, чи були винятки після виконання тесту."""
-    if globals.list_exceptions:
-        pytest.fail(f"Test failed after execution: {item.name}", pytrace=False)
-
-
+@pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item, call):
-    """Зберігає скріншоти при падінні UI тестів."""
-    if call.when == "call" and call.excinfo is not None:
-        if str(call.excinfo.value) != f"Test failed after execution: {item.name}":
-            if 'driver' in item.funcargs:
-                driver = item.funcargs['driver']
+    outcome = yield
+    report = outcome.get_result()
+
+    if report.when == "call":
+        if call.excinfo is not None:
+            if "driver" in item.funcargs:
+                driver = item.funcargs["driver"]
                 Logger.save_screenshot(driver)
+        if globals.list_exceptions:
+            report.outcome = "failed"
+            report.longrepr = f"Test failed after execution: {item.name}"
 
 
 def pytest_addoption(parser):
-    """CLI параметри для API логіну."""
     parser.addoption("--email", action="store", help="User email for login")
     parser.addoption("--password", action="store", help="User password for login")
     parser.addoption("--base-url", action="store", help="Base API URL")
+    parser.addoption(
+        "--suite-name",
+        action="store",
+        default=None,
+        help="Name of test suite (used for logging/reporting)",
+    )
+
 
 pytest_plugins = [
     "fixtures.user_fixtures",
