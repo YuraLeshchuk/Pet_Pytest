@@ -1,0 +1,20 @@
+INFO     LOGGER:conftest.py:46 Starting test: tests/api/test_users.py::test_delete_user
+INFO     LOGGER:conftest.py:84 Initialized API client
+INFO     LOGGER:logger.py:84 Login with user: YL1
+INFO     LOGGER:api_client.py:14 [POST] https://demoqa.com/Account/v1/GenerateToken
+INFO     LOGGER:api_client.py:21 Status: 200 | Time: 1.02s
+INFO     LOGGER:api_client.py:56 Token saved: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IllMMSIsInBhc3N3b3JkIjoiOTc0NTAxTGUjIyIsImlhdCI6MTc3MTQxNTM5OH0.Ak03O5OjEt-bsFXR1w08or0du5gKIQpeot5Xlk8M7pk
+INFO     LOGGER:logger.py:69 CHECKPOINT 3: Read dictionary from text file /home/runner/work/Pet_Pytest/Pet_Pytest/test_data/shared_variables.txt
+INFO     LOGGER:api_client.py:14 [POST] https://demoqa.com/Account/v1/GenerateToken
+INFO     LOGGER:api_client.py:21 Status: 200 | Time: 0.74s
+INFO     LOGGER:api_client.py:56 Token saved: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6Im15dGVzdDIiLCJwYXNzd29yZCI6IlBqSlIzUUBiZtCyZmhkZCIsImlhdCI6MTc3MTQxNTM5OH0._XO-KFuEXCyDTeJPEi3r8cMTBBS0BexC1jXbbJFVB2Y
+INFO     LOGGER:api_client.py:14 [DELETE] https://demoqa.com/Account/v1/User/a79673ff-241b-4700-bdf4-cc1175373cf7
+INFO     LOGGER:api_client.py:21 Status: 204 | Time: 1.10s
+INFO     LOGGER:api_client.py:109 API session closed.
+INFO     LOGGER:conftest.py:114 Test tests/api/test_users.py::test_delete_user finished
+INFO     LOGGER:logger.py:101 *******************************************************
+INFO     LOGGER:logger.py:102 **************** TEST SCENARIO SUMMARY ****************
+INFO     LOGGER:logger.py:103 *******************************************************
+INFO     LOGGER:logger.py:104     TOTAL CHECKPOINTS: 0
+INFO     LOGGER:logger.py:105     TOTAL WARNINGS: 0
+INFO     LOGGER:logger.py:106     TOTAL EXCEPTIONS: 0
